@@ -22,6 +22,7 @@
  * 
  * Copyright RBoy Apps
  * Change log:
+ * 2020-12-05 - (v01.01.01) Only display motion sensor, not switch events
  * 2020-05-05 - (v01.01.00) Updated to reset on initialize and reset motion after X seconds
  * 2018-08-05 - (v01.00.00) Initial public release
  *
@@ -77,14 +78,14 @@ def ping() {
 
 def on() {
     log.trace "Switch on, triggered motion and resetting in ${resetTime ?: RESET_TIME} seconds"
-	sendEvent(name: "switch", value: "on")
+	sendEvent(name: "switch", value: "on", displayed: false)
 	sendEvent(name: "motion", value: "active")
     runIn(resetTime ?: RESET_TIME, off) // IFTTT doesn't turn it off, automatically set it to off after X seconds
 }
 
 def off() {
 	log.trace "Switch off, resetting motion"
-	sendEvent(name: "switch", value: "off")
+	sendEvent(name: "switch", value: "off", displayed: false)
 	sendEvent(name: "motion", value: "inactive")
 }
 
